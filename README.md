@@ -93,5 +93,26 @@
     sudo systemctl enable gigachat-proxy.service
     sudo systemctl status gigachat-proxy.service
     ```
-- Проверяем на 8081 порту извне
+- Проверяем на 8081 порту:
+    ```
+    curl --location 'http://localhost:8081/v1/chat/completions' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "GigaChat",
+  "messages": [
+  {
+  "role": "system",
+  "content": "Ты профессиональный переводчик на английский язык. Переведи точно сообщение пользователя."
+  },
+  {
+  "role": "user",
+  "content": "GigaChat — это сервис, который умеет взаимодействовать с пользователем в формате диалога, писать код, создавать тексты и картинки по запросу пользователя."
+  }
+  ],
+  "n": 1,
+  "stream": false,
+  "update_interval": 0
+  }'
+    ```
+
 
