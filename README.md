@@ -32,11 +32,14 @@
   
 - Скачайте исходники:
     ```
+  $ apt install git
   $ cd /home
+  $ git clone https://github.com/Mike773/gc-proxy.git
     ```
   
 - Соберите приложение:
     ```
+    $ cd /home/gc-proxy
     $ ./gradlew build 
     ```
 - Проверьте JAVA_HOME:
@@ -44,7 +47,7 @@
   echo $JAVA_HOME
     ```
 
-- Добавьте ключи в keystore с доверенными сертами:
+- Добавьте ключи в keystore с доверенными сертами (Убедитесь в корректности $JAVA_HOME. Без нее не сработает):
     ```
   
     openssl s_client -showcerts -connect ngw.devices.sberbank.ru:9443
@@ -85,6 +88,10 @@
     ExecStart=java -jar /home/gc/build/libs/gc-0.0.1.jar --app.auth=$AUTH
     [Install]
     WantedBy=multi-user.target
+    ```
+    ```
+    sudo systemctl enable gigachat-proxy.service
+    sudo systemctl status gigachat-proxy.service
     ```
 - Проверяем на 8081 порту извне
 
