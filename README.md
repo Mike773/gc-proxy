@@ -44,7 +44,8 @@
     ```
 - Проверьте JAVA_HOME:
     ```
-  echo $JAVA_HOME
+    $ echo $JAVA_HOME
+    $ JAVA_HOME='/usr/lib/jvm/java-21-openjdk-amd64'
     ```
 
 - Добавьте ключи в keystore с доверенными сертами (Убедитесь в корректности $JAVA_HOME. Без нее не сработает) (password **changeit**):
