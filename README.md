@@ -47,7 +47,7 @@
   echo $JAVA_HOME
     ```
 
-- Добавьте ключи в keystore с доверенными сертами (Убедитесь в корректности $JAVA_HOME. Без нее не сработает):
+- Добавьте ключи в keystore с доверенными сертами (Убедитесь в корректности $JAVA_HOME. Без нее не сработает) (password **changeit**):
     ```
   
     openssl s_client -showcerts -connect ngw.devices.sberbank.ru:9443
@@ -67,7 +67,7 @@
 - Запустите приложение (Замените $AUTH на ключ из ЛК):
     
     ```
-  $ java -jar build/libs/gc-0.0.1-SNAPSHOT.jar --app.auth=$AUTH
+  $ java -jar build/libs/gc-0.0.1.jar --app.auth=$AUTH
     ```
 - Если запустилось, вырубайте с помощью **control-C** 
 
@@ -85,12 +85,13 @@
     Type=simple
     Restart=always
     RestartSec=3
-    ExecStart=java -jar /home/gc/build/libs/gc-0.0.1.jar --app.auth=$AUTH
+    ExecStart=java -jar /home/gc-proxy/build/libs/gc-0.0.1.jar --app.auth=$AUTH
     [Install]
     WantedBy=multi-user.target
     ```
     ```
     sudo systemctl enable gigachat-proxy.service
+    sudo systemctl start gigachat-proxy.service
     sudo systemctl status gigachat-proxy.service
     ```
 - Проверяем на 8081 порту:
