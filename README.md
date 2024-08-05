@@ -114,5 +114,14 @@
   "update_interval": 0
   }'
     ```
+  
+- Также проверяем embeddings:
+  ```
+  curl --location 'http://localhost:8081/v1/chat/embeddings' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "model": "Embeddings",
+  "input": ["Тестовый вопрос"]}'
+  ```
 
 

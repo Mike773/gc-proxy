@@ -7,6 +7,8 @@ import ru.airobolab.gc.client.dto.TokenResponseDto;
 import ru.airobolab.gc.configuration.MainConfig;
 import ru.airobolab.gc.controller.dto.CompletionsRequestDto;
 import ru.airobolab.gc.controller.dto.CompletionsResponseDto;
+import ru.airobolab.gc.controller.dto.GigachatEmbeddingRequestDto;
+import ru.airobolab.gc.controller.dto.GigachatEmbeddingResponseDto;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -54,15 +56,26 @@ public class GigachatService {
         return gigachatClient.completions(completionsRequestDto,"Bearer "+getToken());
     }
 
+
     public CompletableFuture<CompletionsResponseDto> completionsAsync(CompletionsRequestDto completionsRequestDto){
 
-        return CompletableFuture.supplyAsync(()->{
-            return completions(completionsRequestDto);
-        },executorService);
+        return CompletableFuture.supplyAsync(()-> completions(completionsRequestDto),executorService);
     }
 
     public CompletionsResponseDto getCompletions(CompletionsRequestDto completionsRequestDto) throws ExecutionException, InterruptedException {
         return completionsAsync(completionsRequestDto).get();
     }
 
+    public GigachatEmbeddingResponseDto embeddings (GigachatEmbeddingRequestDto gigachatEmbeddingRequestDto){
+        return gigachatClient.embeddings(gigachatEmbeddingRequestDto,"Bearer "+getToken());
+    }
+
+    public CompletableFuture<GigachatEmbeddingResponseDto> embeddingsAsync (GigachatEmbeddingRequestDto gigachatEmbeddingRequestDto){
+        return CompletableFuture.supplyAsync(()-> embeddings(gigachatEmbeddingRequestDto),executorService);
+    }
+
+
+    public GigachatEmbeddingResponseDto getEmbeddings (GigachatEmbeddingRequestDto gigachatEmbeddingRequestDto) throws ExecutionException, InterruptedException {
+        return embeddingsAsync(gigachatEmbeddingRequestDto).get();
+    }
 }
